@@ -305,8 +305,15 @@ public class MenuNavigacija {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
 
-            while(rs.next()) {
-                System.out.printf("%s %s (%s, %d CSVET)\r\n", rs.getString("Ime"), rs.getString("Prezime"), rs.getString("Program"), rs.getInt("Bodovi"));
+            if (!rs.next() ) {
+                System.out.println("Nema upisanih polaznika na odabranom PO!");
+                rs.close();
+                stmt.close();
+                return;
+            } else {
+                do {
+                    System.out.printf("%s %s (%s, %d CSVET)\r\n", rs.getString("Ime"), rs.getString("Prezime"), rs.getString("Program"), rs.getInt("Bodovi"));
+                } while (rs.next());
             }
 
             stmt.close();
