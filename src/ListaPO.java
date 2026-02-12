@@ -38,7 +38,7 @@ public class ListaPO {
         try(Connection connection = source.getConnection()) {
             Statement statement = connection.createStatement();
 
-            String sqlUpit = String.format("INSERT INTO Polaznik VALUES ('%s', '%d')", naziv, csvet);
+            String sqlUpit = String.format("INSERT INTO ProgramObrazovanja VALUES ('%s', '%d')", naziv, csvet);
 
             int red = statement.executeUpdate(sqlUpit);
 

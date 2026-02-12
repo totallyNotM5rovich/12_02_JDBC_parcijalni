@@ -48,9 +48,11 @@ public class MenuNavigacija {
 
             switch (odabranaOpcija) {
                 case 1:
+                    System.out.println("Unesite ime polaznika:");
                     ime = unosImePrezimeNaziv("Ime");
                     break;
                 case 2:
+                    System.out.println("Unesite prezime polaznika:");
                     prezime = unosImePrezimeNaziv("Prezime");
                     break;
                 case 3:
@@ -76,7 +78,7 @@ public class MenuNavigacija {
         while(true) {
 
             System.out.printf(" 1. Unesite naziv PO: %s\r\n", ((naziv == null) ? "NEDEFINIRAN" : naziv));
-            System.out.printf(" 2. Unesite broj CSVET: %s\r\n", ((csvet > 0) ? "NEDEFINIRAN" : String.format("%d",csvet)));
+            System.out.printf(" 2. Unesite broj CSVET: %s\r\n", ((csvet <= 0) ? "NEDEFINIRAN" : String.format("%d",csvet)));
             System.out.println(" 3. Odustani");
             if(naziv != null && csvet > 0) {
                 System.out.println(" 4. Dodaj PO");
@@ -87,9 +89,11 @@ public class MenuNavigacija {
 
             switch (odabranaOpcija) {
                 case 1:
+                    System.out.println("Unesite naziv PO:");
                     naziv = unosImePrezimeNaziv("Naziv PO");
                     break;
                 case 2:
+                    System.out.println("Unesite broj CSVET bodova:");
                     csvet = MenuNavigacija.unosCSVET();
                     break;
                 case 3:
@@ -132,7 +136,6 @@ public class MenuNavigacija {
         try(Connection connection = source.getConnection()) {
             CallableStatement stmt = connection.prepareCall("{CALL DohvatiUpisanePO(?)}");
             stmt.setInt(1, idPolaznik);
-            stmt.executeUpdate();
             ResultSet rs = stmt.executeQuery();
             if (!rs.next() ) {
                 System.out.println("Odabrani polaznik nije upisan ni na jedan PO!");
@@ -141,7 +144,7 @@ public class MenuNavigacija {
                 return;
             } else {
                 do {
-                    System.out.printf("ID: %d, %s\r\n", rs.getInt("ID"), rs.getFloat("Naziv"));
+                    System.out.printf("ID: %d, %s\r\n", rs.getInt("ID"), rs.getString("Naziv"));
                 } while (rs.next());
             }
             rs.close();
